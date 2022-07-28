@@ -1,0 +1,42 @@
+@import '_variables.less';
+
+.progressbar {
+  &-container {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: ~"calc(50% - 150px)";
+    text-align: center;
+  }
+  &-items {
+    width: 100%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+  }
+  &-summary {
+    .label {
+      color: black;
+    }
+  }
+  &-allpages {
+    font-weight: bold;
+  }
+  &-completed-pages {
+    color: blue;
+  }
+  &-item {
+    height: 5px;
+    flex: 1;
+    background-color: #ddd;
+    &.visited {
+      background-color: @colorMain;
+    }
+    &.solved {
+      background-color: @colorPartialCorrect;
+    }
+    &.current {
+      background-color: red;
+    }
+  }
+}

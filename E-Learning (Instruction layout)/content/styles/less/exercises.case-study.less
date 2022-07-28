@@ -1,0 +1,277 @@
+// case-study content
+.page-type-case-study {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .flexbox();
+
+  .aside {
+    .flexbox-flex(1 1 0px);
+    order: 2;
+    position: relative;
+    background: darken(@colorBgMedium, 2%);
+
+    &.aside-left {
+      order: 0;
+    }
+
+    .aside-content {
+      position: absolute;
+      background: @colorBgMedium;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      padding: 10px 20px;
+
+      .exercise-wrapper {
+        padding: 10px 0;
+      }
+    }
+  }
+
+  n-tabs {
+    display: block;
+    .flexbox-flex(1 1 0px);
+
+    n-tab-content {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      &:empty {
+        display: none;
+      }
+
+      .nTabsContent {
+        height: 100%;
+      }
+    }
+  }
+
+  .cs-while-responsive () {
+
+    & {
+      display: block;
+      // .flex-direction(column);
+      overflow-x: hidden;
+
+      n-tabs {
+        height: 100%;
+
+        .tabs-content {
+          height: 100%;
+        }
+      }
+
+      .aside, n-tabs {
+        .flexbox-flex(none);
+        display: block;
+      }
+
+      .nTabsContent {
+        padding: 10px;
+        padding-top: 75px;
+
+        .exerciseContent {
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-width: @mobileBreakpoint),
+             (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+             (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+             (min-resolution: 2dppx),             /* The standard way */
+             (min-resolution: 192dpi)             /* dppx fallback */  {
+        .nTabsContent {
+          // padding: 10px;
+        }
+      }
+
+      n-tabs n-tab-content {
+        position: static;
+      }
+
+      .aside .aside-content, .tabs-content, .tabs-content ion-content {
+        position: static;
+      }
+
+      .aside .aside-content {
+        top: 0;
+        padding: 10px;
+      }
+    }
+
+  }
+
+  &.responsive-break {
+    .cs-while-responsive();
+  }
+
+  @media (max-width: @mobileBreakpoint),
+         (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+         (orientation: portrait) and (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+         (orientation: portrait) and (min-resolution: 2dppx),             /* The standard way */
+         (orientation: portrait) and (min-resolution: 192dpi)             /* dppx fallback */  {
+
+    .cs-while-responsive();
+  }
+
+}
+
+.force-scroll-100 .mCSB_container {
+  width: 100% !important;
+}
+
+// @media (max-width: @mobileBreakpoint),
+//        (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+//        (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+//        (min-resolution: 2dppx),             /* The standard way */
+//        (min-resolution: 192dpi)             /* dppx fallback */  {
+//
+//   .page-type-case-study .aside .aside-content, .nTabsContent {
+//     padding: 10px;
+//   }
+// }
+
+n-tabs {
+  position: relative;
+
+  .toggle-button {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 21;
+    display: none;
+  }
+
+  .tabs-content {
+    .clearfix();
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    width: 100%;
+
+    ion-content {
+      bottom: 0;
+      overflow-y: auto;
+    }
+  }
+
+  .tabs-header-collapsible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+
+    .tabs-bar {
+      background: darken(@colorBgMedium, 2%);
+      overflow: hidden;
+      .box-shadow(inset 0 -4px 0 0 @colorBgDark);
+      height: 64px;
+      position: relative;
+      .flexbox();
+
+      n-tab-header {
+        //display: inline-block;
+        .flexbox-flex(1 1 auto);
+        transition: all 0.5s;
+        overflow: hidden;
+
+        .nTabsHeader {
+          padding: 23px 10px 12px;
+          cursor: pointer;
+          color: @colorTextDark;
+          font-size: 1em;
+          font-weight: 700;
+          text-transform: uppercase;
+          box-sizing: border-box;
+          text-align: center;
+          border-bottom: 4px solid transparent;
+          transition: border-color .5s;
+
+          span:first-child {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: inline-block;
+            width: 100%;
+
+          }
+        }
+
+        &:hover {
+          .nTabsHeader {
+            border-bottom: 4px solid lighten(@colorMain, 50%);
+          }
+        }
+
+        &.active .nTabsHeader {
+          color: @colorMain;
+          border-bottom: 4px solid @colorMain;
+        }
+      }
+    }
+  }
+}
+
+.nTabsContent {
+  padding: 20px;
+
+  &.active {
+  }
+}
+
+@media all and (max-width: @mobileBreakpoint) {
+
+  n-tabs {
+    height: 100%;
+
+    .tabs-content {
+      height: 100%;
+    }
+
+    .toggle-button {
+      display: block;
+    }
+
+    .tabs-header-collapsible {
+      height: 64px;
+      overflow: visible;
+
+      .tabs-bar {
+        height: auto;
+        display: block;
+
+        n-tab-header {
+          .flexbox-flex(none);
+          display: block;
+          width: 100% !important;
+          max-height: 0;
+          overflow: hidden;
+
+          &.active {
+            max-height: 64px;
+          }
+        }
+      }
+
+      &.open {
+        n-tab-header {
+          max-height: 64px;
+          background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.04) 100%);
+          background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.04) 100%);
+          background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.04) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#1a000000',GradientType=0 );
+        }
+      }
+    }
+  }
+
+}

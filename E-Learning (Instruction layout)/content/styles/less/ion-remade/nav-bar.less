@@ -1,0 +1,18 @@
+nav-bar, nav-buttons, nav-title {
+  display: block;
+}
+
+nav-bar {
+  &.navbar { margin-bottom: 0; border: 0; }
+
+  .navbar-header { float: none; position: relative; }
+  .navbar-text { text-align: center; }
+
+  nav-buttons[side="left"] { float: left; }
+  nav-buttons[side="right"] { float: right; }
+
+  nav-title {
+    float: none;
+    position: absolute;
+  }
+}

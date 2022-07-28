@@ -1,0 +1,290 @@
+@import '_variables.less';
+@import '_mixins.less';
+@import '_animate.less';
+
+@mainColor: @colorMain;
+
+tabbed-page-slide, tabbed-flip-page-slide, double-page-slide, single-page-slide {
+  display: block;
+  height: 100%;
+}
+
+
+
+
+
+
+
+.exercise, .exerciseInner, .exerciseInner > div, .exerciseBackdrop {
+  .animation-duration(0.6s);
+}
+
+.exerciseBackdrop {
+  background-size: cover;
+  background-repeat: no-repeat;
+  .flexbox();
+
+  // justify-content: center;
+  // align-items: flex-end;
+  height: 100%;
+  width: 100%;
+}
+
+.exerciseContent {
+  // margin: 0 auto;
+  .flexbox-flex(0 1 auto);
+  // vertical-align: middle;
+  height: 100%;
+  // max-width: 980px;
+  max-height: 100%;
+  // overflow: auto;
+
+  //@media (max-width: @mobileBreakpoint) {
+  //  height: auto;
+  //}
+
+  &.fullWidth {
+    display: block;
+    width: 100%;
+  }
+
+}
+
+.exerciseContentInner {
+  height: 100%
+}
+
+.exerciseContent {
+  .col {
+    & > .exercise-wrapper {
+      margin: 5%;
+    }
+  }
+}
+
+
+
+// excersises
+@shadowBaseSize: 0px;
+
+.exercise-wrapper {
+  position: relative;
+  margin: auto;
+  // box-shadow: 0 0 0 @shadowBaseSize rgba(255,255,255,.9);
+  //
+  // &:before, &:after {
+  //   position: absolute;
+  //   content: "";
+  //   top: -@shadowBaseSize;
+  //   bottom: -@shadowBaseSize;
+  //   width: @shadowBaseSize;
+  //   background: rgba(255,255,255,.9);
+  // }
+  //
+  // &:before { left: (-2 * @shadowBaseSize); }
+  // &:after { right: (-2 * @shadowBaseSize); }
+}
+
+.aside-content {
+
+  .exercise-wrapper {
+    box-shadow: none;
+
+    &:before, &:after {
+      content: none;
+    }
+  }
+}
+
+
+//single page styling
+
+single-page-slide {
+
+  .ps-predefPosition {
+    &.NW { .flex-justify(flex-start); .flex-align-items(flex-start); }
+    &.N { .flex-justify(center); .flex-align-items(flex-start); }
+    &.NE { .flex-justify(flex-end); .flex-align-items(flex-start); }
+
+    &.W { .flex-justify(flex-start); .flex-align-items(center); }
+    &.MID { .flex-justify(center); .flex-align-items(center); }
+    &.E { .flex-justify(flex-end); .flex-align-items(center); }
+
+    &.SW { .flex-justify(flex-start); .flex-align-items(flex-end); }
+    &.S { .flex-justify(center); .flex-align-items(flex-end); }
+    &.SE { .flex-justify(flex-end); .flex-align-items(flex-end); }
+
+    .page-style-holder {
+      max-height: 100%;
+      overflow: auto;
+    }
+  }
+
+  .ps-customPosition {
+    display: block;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    .page-style-holder {
+      position: absolute;
+      max-height: none;
+      max-width: none;
+    }
+
+  }
+
+  .exercise-boundaries {
+    height: 100%;
+  }
+}
+
+@media (max-width: @mobileBreakpoint),
+       (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+       (orientation: portrait) and (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+       (orientation: portrait) and (min-resolution: 2dppx),             /* The standard way */
+       (orientation: portrait) and (min-resolution: 192dpi)             /* dppx fallback */  {
+
+  single-page-slide {
+    .ps-customPosition, .ps-predefPosition {
+      .page-style-holder {
+        max-height: 100%;
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: auto !important;
+      }
+    }
+  }
+
+}
+
+
+//double LO page
+.flex-row {
+  // padding: 0;
+  .flexbox();
+  height: 100%;
+
+  .flex-col {
+    .flexbox-flex(1);
+    display: block;
+    width: 100%;
+    max-height: 100%;
+    padding: 20px;
+    height: 100%;
+
+    .exercise-boundaries {
+      max-height: 100%;
+      height: 100%;
+      overflow: auto !important;
+    }
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+       (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+       (min-resolution: 2dppx),             /* The standard way */
+       (min-resolution: 192dpi)             /* dppx fallback */  {
+
+  .flex-row .flex-col {
+    padding: 20px 10px;
+  }
+}
+
+.double-page-tabs {
+  display: none;
+  background: darken(@colorBgMedium, 2%);
+  color: black;
+  height: 64px;
+  width: 100%;
+
+  .double-page-tab {
+    width: 50%;
+    display: inline-block;
+    padding: 23px 10px 12px;
+    cursor: pointer;
+    color: @colorTextDark;
+    font-size: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom: 4px solid transparent;
+
+    span:first-child {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+      width: 100%;
+    }
+
+    &:hover {
+      border-bottom: 4px solid lighten(@colorMain, 50%);
+    }
+
+    &.active {
+      border-bottom: 4px solid @colorMain;
+    }
+  }
+}
+
+@media (max-width: @mobileBreakpoint),
+       (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+       (orientation: portrait) and (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+       (orientation: portrait) and (min-resolution: 2dppx),             /* The standard way */
+       (orientation: portrait) and (min-resolution: 192dpi)             /* dppx fallback */  {
+
+  .double-page-tabs {
+    display: block;
+  }
+
+  .flex-row {
+    // .flex-direction(column);
+    display: block;
+    overflow: auto;
+    width: 100%;
+
+    .flex-col {
+      // .flexbox-flex(1);
+      display: none;
+      padding: 10px 0 0 0;
+      margin-left: 0;
+      max-width: 100%;
+      max-height: none;
+      width: 100%;
+      height: ~"calc(100% - 64px)";
+
+      &.active {
+        display: block;
+      }
+    }
+  }
+}
+
+//report
+.feedback-window {
+  text-align: center;
+}
+
+// vertical navigation styles
+.vertical-navigation-page-wrapper {
+  height: auto;
+  .exercise-wrapper {
+    height: auto;
+    background-size: cover;
+
+    html, body, #wrapper {
+      height: auto;
+    }
+  }
+  .lo-iframe {
+    height: 100%;
+  }
+
+  &:last-child .anchor-page {
+    min-height: ~"calc(100vh - 140px)";
+  }
+}

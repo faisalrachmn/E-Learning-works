@@ -1,0 +1,59 @@
+.cobu-summary {
+  padding-top: 20px;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  ul {
+    list-style: none;
+  }
+
+  .cobu-summary-results, .cobu-summary-chart-wrapper, .cobu-summary-overall-score {
+    display: inline-block;
+    vertical-align: top;
+    padding: 20px;
+  }
+
+  .cobu-summary-results {
+    width: 100%;
+  }
+
+  .cobu-summary-overall-score {
+    width: 100%
+  }
+
+  &.cobu-summary-has-chart {
+    .cobu-summary-results {
+      width: 50%
+    }
+
+    .cobu-summary-chart-wrapper {
+      width: 50%;
+
+      .cobu-summary-chart {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    @media (max-width: @mobileBreakpoint),
+    (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2), /* Webkit-based browsers */
+    (orientation: portrait) and (min--moz-device-pixel-ratio: 2),    /* Older Firefox browsers (prior to Firefox 16) */
+    (orientation: portrait) and (min-resolution: 2dppx),             /* The standard way */
+    (orientation: portrait) and (min-resolution: 192dpi)             /* dppx fallback */ {
+      .cobu-summary-results {
+        width: 100%
+      }
+
+      .cobu-summary-chart-wrapper {
+        width: 100%;
+
+        .cobu-summary-chart {
+          margin: 0 auto;
+          width: 80%;
+          height: 80%;
+        }
+      }
+    }
+  }
+}

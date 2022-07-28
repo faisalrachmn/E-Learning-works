@@ -1,0 +1,54 @@
+@import '../_variables.less';
+@import '../_mixins.less';
+
+side-menu-wrapper {
+  display: block;
+  z-index: 3;
+
+  side-menu {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    min-height: 100%;
+    max-height: 100%;
+    width: 350px;
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  side-menu-content {
+    display: block;
+    .transition(transform .2s ease);
+  }
+
+}
+
+.item-icon-left {
+  padding-left: 100px;
+
+  .icon {
+    .display-flex();
+    .align-items();
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+}
+
+side-menu-wrapper.aside-open {
+  side-menu-content {
+    .translate3d(350px; 0px; 0px);
+  }
+}
+
+side-menu-wrapper.side-menu-always-on {
+  side-menu-content {
+    .transition(none);
+    .translate3d(350px; 0px; 0px);
+    width: ~"calc(100% - 350px)";
+  }
+}

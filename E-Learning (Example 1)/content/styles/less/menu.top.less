@@ -1,0 +1,168 @@
+@import '_variables.less';
+@import '_mixins.less';
+
+@mobileBreakpoint: 768px;
+@mobileBreakpointMax: (@mobileBreakpoint + 1);
+@colorInactive: fadeout(#000, 85%);
+
+.sections {
+  z-index: 2;
+  position: relative;
+
+  .section {
+
+    .section-handle span.section-title,
+    .section-handle span.section-subtitle {
+      display: inline-block;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section:not(.section-active) {
+    display: none;
+  }
+
+  .section-handle {
+    padding: 5px 10px;
+    display: block;
+  }
+
+  .exercises {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+//mobile only
+@media (max-width: @mobileBreakpoint) {
+  .sections {
+
+    .exercises {
+      .flexbox();
+    }
+
+    .exercise {
+      .flexbox-flex(1 1 0px);
+      margin: 0 5px 4px;
+
+      a {
+        display: block;
+        height: 13px;
+        margin-top: -3px;
+      }
+
+      &.active {
+        a {
+          position: relative;
+        }
+      }
+    }
+
+    .section-handle {
+      .text-overflow();
+    }
+
+    .rightNavigation {
+      display: none;
+    }
+  }
+}
+
+//desktop only
+@media  (min-width: @mobileBreakpointMax) {
+  .sections {
+    .clearfix();
+
+    & > ul {
+      float: left;
+      line-height: 44px;
+      font-size: 1.4em;
+    }
+
+    .section, .section:not(.section-active) {
+      display: inline-block;
+      position: relative;
+
+      &:before, &:after {
+        .content;
+        position: absolute;
+        top: 0;
+        border: solid transparent;
+        border-width: 22px 0 22px 10px;
+        border-left-color: fadeout(#fff, 85%);
+        right: -6px;
+      }
+      &:after {
+        right: -5px;
+      }
+
+      .section-handle {
+        display: inline-block;
+        padding: 0 20px;
+        cursor: pointer;
+      }
+    }
+
+    .section-empty {
+      display: inline-block;
+      line-height: 44px;
+    }
+
+    .exercises {
+      display: inline-block;
+      margin-left: -10px;
+    }
+
+    .exercise {
+      @colorInactive: fadeout(#000, 85%);
+      display: inline-block;
+      .size(30px);
+      vertical-align: top;
+      cursor: pointer;
+
+      a {
+        display: block;
+        .size(~"calc(100% - 10px)", 14px);
+        margin-top: 15px;
+        position: relative;
+      }
+
+      &:not(:last-child) a:after, + .exercise a:before {
+        .content;
+        border: solid transparent;
+        border-width: 7px 0 7px 5px;
+        position: absolute;
+        top: 0;
+      }
+
+      &:not(:last-child) a:after {
+        left: 100%;
+      }
+
+      + .exercise a:before {
+        right: 100%;
+      }
+
+    }
+
+    .exercise-disabled, .section-disabled {
+      cursor: not-allowed;
+    }
+
+    .rightNavigation {
+      float: right;
+
+      a {
+        line-height: 42px;
+        display: inline-block;
+        padding: 0px 12px;
+      }
+    }
+  }
+}

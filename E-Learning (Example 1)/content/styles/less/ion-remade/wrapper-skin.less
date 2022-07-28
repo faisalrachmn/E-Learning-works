@@ -1,0 +1,294 @@
+@activityBackground: #fff;
+
+@mainColor: #337ab7;
+@secondaryColor: #fff;
+
+@mainColorText: #fff;
+@secondaryColorText: #333;
+
+@appNavActiveColor: #fff;
+
+@appBorder: #eaeaea;
+
+@buttonCornerRadius: 5px;
+
+.display-flex() {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.align-items(@pos: center) {
+  -webkit-align-items:  @pos;
+  -webkit-box-align:    @pos;
+  -moz-align-items:     @pos;
+  -ms-flex-align:       @pos;
+  align-items:          @pos;
+}
+
+.box-shadow (@shadow) {
+	-webkit-box-shadow: @shadow;
+	-moz-box-shadow: @shadow;
+	box-shadow: @shadow;
+}
+
+////////////// side menus ///////////////////////
+side-menu-wrapper {
+  background: @activityBackground;
+
+  side-menu {
+    background: @activityBackground;
+    border-right: 2px solid @appBorder;
+  }
+}
+
+side-menu-wrapper.aside-open {
+  side-menu-content {
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: transparent;
+      z-index: 11;
+      pointer-events: none;
+      animation:  bgoverlay 1s forwards;
+    }
+  }
+}
+
+//---- content overlay with side menu opened ----------
+@keyframes bgoverlay {
+    0% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: fade(rgba(0,0,0,1), 50%);
+    }
+}
+
+////////////// side menu list /////////////////////
+side-menu {
+  h1.bar-title {
+    font-size: 1.4em;
+    line-height: 44px;
+    margin: 0 0 10px;
+    padding: 6px 40px 0 40px;
+
+    .btn {
+      line-height: 44px;
+      position: absolute;
+      right: 20px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+
+      a.item {
+        cursor: pointer;
+        display: block;
+        color: @secondaryColorText;
+        padding: 10px 40px;
+        font-size: 1em;
+        position: relative;
+        .transition(background .2s);
+
+        &:hover, &:focus, &:active {
+          text-decoration: none;
+        }
+
+        &:hover,
+        &.active:hover {
+          background-color: rgba(0,0,0,0.2);
+        }
+
+        &.active {
+          background-color: rgba(0,0,0,0.1);
+          color: @secondaryColorText;
+        }
+
+        &.item-icon-left {
+          padding-left: 80px;
+
+          .icon {
+            left: 40px;
+            font-size: 32px;
+            color: @mainColor;
+          }
+
+          &.page {
+            padding-left: 100px;
+
+            .icon {
+              left: 60px;
+            }
+          }
+        }
+      }
+
+      a.exercise-disabled, a.section-disabled {
+        cursor: not-allowed;
+      }
+
+      .unit {
+        font-weight: bold;
+      }
+
+      &:not(:first-child) {
+        .item.unit {
+          &:before {
+            content: "";
+            display: block;
+            width: ~"calc(100% - 40px)";
+            height: 1px;
+            background: @appBorder;
+            position: absolute;
+            top: 0;
+            left: 20px;
+          }
+          &:hover:before {
+            background: transparent;
+          }
+        }
+      }
+
+
+
+    }
+  }
+
+}
+
+////////////// header nav bar /////////////////////
+nav-bar {
+  &.navbar {
+    background: @secondaryColor;
+    color: @secondaryColorText;
+  }
+}
+
+//////////// secondary nav bar ///////////////////
+@mobileBreakpoint: 768px;
+@mobileBreakpointMax: (@mobileBreakpoint + 1);
+@colorInactive: fadeout(#000, 85%);
+
+.sections {
+  background: @mainColor;
+  color: @mainColorText;
+  .box-shadow(0 5px 0 fadeout(#000, 92%));
+
+  & > ul {
+    font-size: 1.1em;
+  }
+
+  .section-handle {
+    color: @mainColorText;
+  }
+}
+
+@media (max-width: @mobileBreakpoint) {
+  .sections {
+
+    .exercise {
+      a {
+        border-radius: @buttonCornerRadius;
+        background: @colorInactive;
+      }
+
+      &.active {
+        a {
+          background: @appNavActiveColor;
+        }
+      }
+    }
+  }
+}
+
+//desktop only
+.border-right-radius (@radius) {
+  -webkit-border-top-right-radius: @radius;
+  -moz-border-radius-topright: @radius;
+  border-top-right-radius: @radius;
+  -webkit-border-bottom-right-radius: @radius;
+  -moz-border-radius-bottomright: @radius;
+  border-bottom-right-radius: @radius;
+}
+.border-left-radius (@radius) {
+  -webkit-border-top-left-radius: @radius;
+	-moz-border-radius-topleft: @radius;
+	border-top-left-radius: @radius;
+	-webkit-border-bottom-left-radius: @radius;
+	-moz-border-radius-bottomleft: @radius;
+	border-bottom-left-radius: @radius;
+}
+
+@media  (min-width: @mobileBreakpointMax) {
+  .sections {
+
+    .section, .section:not(.section-active) {
+      &:after {
+        border-left-color: @mainColor;
+      }
+    }
+
+    .exercise {
+
+      a {
+        background: @colorInactive;
+      }
+
+      &:first-child a {
+        .border-left-radius(@buttonCornerRadius);
+      }
+      &:last-child a {
+        .border-right-radius(@buttonCornerRadius);
+      }
+
+      &:not(:last-child) a:after {
+        border-left-color: @colorInactive;
+      }
+
+      + .exercise a:before {
+        border-top-color: @colorInactive;
+        border-bottom-color: @colorInactive;
+      }
+
+      &.active a {
+        background-color: @appNavActiveColor;
+
+        &:before {
+          border-top-color: @appNavActiveColor;
+          border-bottom-color: @appNavActiveColor;
+        }
+        &:after {
+          border-left-color: @appNavActiveColor;
+        }
+      }
+    }
+
+    .rightNavigation {
+      a {
+        color: @mainColorText;
+      }
+    }
+  }
+}
+
+
+///////////////footer nav bar/////////////////
+.bottom-bar {
+  border-top: 1px solid @appBorder;
+  background: @secondaryColor;
+  color: @secondaryColorText;
+}
